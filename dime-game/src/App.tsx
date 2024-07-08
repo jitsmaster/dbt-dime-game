@@ -54,7 +54,7 @@ const noActionsByScore = [
 	"Say no firmly, resist saying yes",
 	"Say no firmly, resist, negotiate",
 	"Don't do it"
-];
+].reverse();
 
 const colorsByIndex = [
 	"#ff0000",
