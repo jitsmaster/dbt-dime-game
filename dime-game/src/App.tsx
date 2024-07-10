@@ -125,7 +125,7 @@ function App() {
 					<div className="card">
 						<h2>{questionType[mode ? 0 : 1]}</h2>
 						<h3>{questions[questionIndex].question} <span style={{ cursor: 'pointer' }} onClick={(_) => playSound(questions[questionIndex].question)}>🔊</span></h3>
-						<button onClick={() => { setScore(score + 1); setQuestionIndex(questionIndex + 1); stopPlay() }}>Yes</button>
+						<button style={{ marginRight: "10px" }} onClick={() => { setScore(score + 1); setQuestionIndex(questionIndex + 1); stopPlay() }}>Yes</button>
 						<button onClick={() => { setQuestionIndex(questionIndex + 1); stopPlay() }}>No</button>
 					</div>
 				</>
@@ -133,7 +133,7 @@ function App() {
 		}
 		else {
 			if (!playedResult) {
-				playSound(actions[score])
+				playSound(`Action recommended for you: ${actions[score]}`)
 				localStorage.setItem("playedResult", "true");
 			}
 			else
@@ -146,7 +146,7 @@ function App() {
 						<h2>Score: {score * 10}¢</h2>
 						<h3>Action to take:</h3>
 						<h2 style={{ color: colorsByIndex[score] }}>{actions[score]}
-							<span style={{ cursor: 'pointer' }} onClick={(_) => playSound(actions[score])}>🔊</span>
+							<span style={{ cursor: 'pointer' }} onClick={(_) => playSound(`Action recommended for you: ${actions[score]}`)}>🔊</span>
 						</h2>
 						<button onClick={() => { setMode(undefined); setScore(0); setQuestionIndex(0); playSound('Starting Over') }}>Start Over</button>
 					</div>
