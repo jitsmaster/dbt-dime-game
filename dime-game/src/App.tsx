@@ -54,7 +54,7 @@ const noActionsByScore = [
 	"Say no firmly, resist saying yes",
 	"Say no firmly, resist, negotiate",
 	"Say no and don't do it"
-].reverse();
+];
 
 const colorsByIndex = [
 	"#ff0000",
@@ -97,15 +97,23 @@ function App() {
 
 	let lastIndex = localStorage.getItem("lastIndex") ? parseInt(localStorage.getItem("lastIndex")!) : 0;
 	let playedResult = localStorage.getItem("playedResult") ? localStorage.getItem("playedResult") === "true" : false;
-
+	let introPlayed = localStorage.getItem("introPlayed") ? localStorage.getItem("introPlayed") === "true" : false;
 	if (mode === undefined) {
+		if (!introPlayed) {
+			playSound('Welcome to the Dime Game. Please choose whether you want to ask or say no.')
+			localStorage.setItem("introPlayed", "true");
+		}
+		else {
+			localStorage.setItem("introPlayed", "false");
+		}
+
 		//display types
 		return (
 			<>
 				<h1>Dime Game</h1>
 				<div className="card">
-					<button onClick={() => setMode(true)}>Decide how strongly to ask</button>
-					<button onClick={() => setMode(false)}>Decide how strongly to say no</button>
+					<button onClick={() => { setMode(true); playSound("You chose how strongly to ask") }}>Decide how strongly to ask</button>
+					<button onClick={() => { setMode(false); playSound("You chose how strongly to say no") }}>Decide how strongly to say no</button>
 				</div>
 			</>
 		)
@@ -114,7 +122,6 @@ function App() {
 
 		const questions = mode ? askQuestions : sayNoQuestions;
 		const actions = mode ? askActionsByScore : noActionsByScore;
-
 
 
 		if (questionIndex < questions.length) {
@@ -127,15 +134,17 @@ function App() {
 					<div className="card">
 						<h2>{questionType[mode ? 0 : 1]}</h2>
 						<h3>{questions[questionIndex].question} <span style={{ cursor: 'pointer' }} onClick={(_) => playSound(questions[questionIndex].question)}>🔊</span></h3>
-						<button style={{ marginRight: "10px" }} onClick={() => { setScore(score + 1); setQuestionIndex(questionIndex + 1); stopPlay() }}>Yes</button>
-						<button onClick={() => { setQuestionIndex(questionIndex + 1); stopPlay() }}>No</button>
+						<button style={{ marginRight: "10px" }}
+							onClick={() => { setScore(score + 1); setQuestionIndex(questionIndex + 1); stopPlay(); playSound("You chose Yes") }}>Yes</button>
+						<button onClick={() => { setQuestionIndex(questionIndex + 1); stopPlay(); playSound("You chose No") }}>No</button>
 					</div>
 				</>
 			)
 		}
 		else {
+			const answer = `Action recommended for you: ${actions[score]}. Make sure to check with your wise mind before acting according to recommendation.`
 			if (!playedResult) {
-				playSound(`Action recommended for you: ${actions[score]}`)
+				playSound(answer)
 				localStorage.setItem("playedResult", "true");
 			}
 			else
@@ -148,8 +157,9 @@ function App() {
 						<h2>Score: {score * 10}¢</h2>
 						<h3>Action to take:</h3>
 						<h2 style={{ color: colorsByIndex[score] }}>{actions[score]}
-							<span style={{ cursor: 'pointer' }} onClick={(_) => playSound(`Action recommended for you: ${actions[score]}`)}>🔊</span>
+							<span style={{ cursor: 'pointer' }} onClick={(_) => playSound(answer)}>🔊</span>
 						</h2>
+						<h3>Make sure to check with your wise mind before acting according to recommendation.</h3>
 						<button onClick={() => { setMode(undefined); setScore(0); setQuestionIndex(0); playSound('Starting Over') }}>Start Over</button>
 					</div>
 				</>
