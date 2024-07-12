@@ -1,30 +1,27 @@
-# React + TypeScript + Vite
+To build and run the Dime Game, follow these instructions:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+1. Make sure you have the necessary dependencies installed on your system. This may include programming languages, frameworks, libraries, or tools required by the Dime Game project. Refer to the project's documentation for specific requirements.
 
-Currently, two official plugins are available:
+2. Clone the Dime Game repository to your local machine using Git. Open a terminal or command prompt and navigate to the desired directory. Then, run the following command:
+	```
+	git clone <repository_url>
+	```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+3. Change into the project directory:
+	```
+	cd dime-game
+	```
 
-## Expanding the ESLint configuration
+4. Install any required dependencies. This can typically be done using a package manager such as npm or pip. Refer to the project's documentation for the specific commands to install dependencies.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+	```
+	npm install bun -g
+	bun install
+	```
 
-- Configure the top-level `parserOptions` property like this:
+5. Run in dev mode:
+	```
+	bun run dev
+	```
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
