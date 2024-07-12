@@ -86,8 +86,7 @@ function App() {
 	function playSound(text: string) {
 		const msg = new SpeechSynthesisUtterance(text);
 		msg.voice = voiceToUse;
-		msg.rate = 1.05;
-		msg.pitch = 0.9;
+		msg.rate = 1.00;
 		window.speechSynthesis.speak(msg);
 	}
 
